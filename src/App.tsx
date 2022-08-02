@@ -1,16 +1,21 @@
 // ./src/App.tsx
 
 import React, { useState } from 'react';
-import uploadDataToBlob, { isStorageConfigured } from './azure-storage-blob';
+import { uploadDataToBlob, isStorageConfigured, listBlobsinContainer } from './azure-storage-blob';
 
 const storageConfigured = isStorageConfigured();
 const tracklog = JSON.parse('{"data": "xxx","start_date": "xxx","end_date": "xxx","timestamp": ""}');
 
 const App = (): JSX.Element => {
 
-  console.log(tracklog)
-
+  const [blobList, setBlobList] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
+
+  const getBlobs = async () => {
+    const blobsInContainer: string[] =  await listBlobsinContainer();
+    setBlobList(blobsInContainer)
+  };
+  
 
   const onFileUpload = async () => {
     // prepare UI
@@ -27,7 +32,7 @@ const App = (): JSX.Element => {
     <div>
       <button type="submit" onClick={onFileUpload}>
         Upload!
-          </button>
+      </button>
     </div>
   )
 

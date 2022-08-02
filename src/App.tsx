@@ -4,12 +4,11 @@ import React, { useState } from 'react';
 import uploadDataToBlob, { isStorageConfigured } from './azure-storage-blob';
 
 const storageConfigured = isStorageConfigured();
-const tracklog = JSON.parse('{"EAN": "xxx","start_date": "xxx","end_date": "xxx","timestamp": ""}');
+const tracklog = JSON.parse('{"data": "xxx","start_date": "xxx","end_date": "xxx","timestamp": ""}');
 
 const App = (): JSX.Element => {
 
   console.log(tracklog)
-  console.log(tracklog.length)
 
   const [uploading, setUploading] = useState(false);
 
